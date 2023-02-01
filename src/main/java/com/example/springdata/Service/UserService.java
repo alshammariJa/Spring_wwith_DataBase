@@ -1,5 +1,6 @@
 package com.example.springdata.Service;
 
+import com.example.springdata.Exeption.Api;
 import com.example.springdata.Module.User;
 import com.example.springdata.repository.RepositoryUser;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,40 @@ return true;
         }
         RepositoryUser.deleteById(id);
         return  true;
+    }
+
+
+
+
+    public User findUserByEmail(String email) {
+        User user = RepositoryUser.findUserByEmail(email);
+        if (user == null) {
+            throw new Api("email is null");
+        }
+        return user;
+    }
+
+    public List<User> findbyage(Integer age) {
+        List<User> user = RepositoryUser.findAllByAgeGreaterThanEqual(age);
+        if (user == null) {
+            throw new Api("this age is not here");
+        }
+        return user;
+    }
+
+    public List<User> findbyrole(String role){
+        List<User> user = RepositoryUser.findAllByRole(role);
+        if (user == null) {
+            throw new Api("not here");
+        }
+        return user;
+    }
+
+    public User check(String username,String password){
+        User user = RepositoryUser.findUserByUsernameAndPassword(username,password);
+        if (user == null) {
+            throw new Api("there is no user with this username and password");
+        }
+        return user;
     }
 }

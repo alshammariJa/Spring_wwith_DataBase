@@ -50,5 +50,28 @@ public class ControllerUser {
     return ResponseEntity.status(200).body("deleted done");
 }
 
+    @GetMapping("/byemail/{email}")
+    public ResponseEntity getByemail(@PathVariable String email){
+        User user=UserService.findUserByEmail(email);
+        return ResponseEntity.status(200).body(user);
+    }
+
+    @GetMapping("/byage/{age}")
+    public ResponseEntity getByage(@PathVariable Integer age){
+        List<User> user=UserService.findbyage(age);
+        return ResponseEntity.status(200).body(user);
+    }
+    @GetMapping("/byrole/{role}")
+    public ResponseEntity getByrole(@PathVariable String role){
+        List<User> user= UserService.findbyrole(role);
+        return ResponseEntity.status(200).body(user);
+    }
+
+    @GetMapping("/check/{username}/{password}")
+    public ResponseEntity getByrole(@PathVariable String username,@PathVariable String password){
+        User user=UserService.check(username,password);
+        return ResponseEntity.status(200).body(user);
+    }
+
 
 }
